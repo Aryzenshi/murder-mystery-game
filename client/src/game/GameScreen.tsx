@@ -170,7 +170,18 @@ export function GameScreen() {
           >
             Music: {prefs.music ? 'On' : 'Off'}
           </button>
-
+          {prefs.music && (
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.05"
+              value={prefs.musicVolume ?? 0.8}
+              onChange={(e) => setPrefs({ musicVolume: parseFloat(e.target.value) })}
+              style={{ width: '60px', marginLeft: '-4px', marginRight: '4px', verticalAlign: 'middle' }}
+              title="Music Volume"
+            />
+          )}
           <button className="btn btn--ghost btn--sm" onClick={() => setHelp(true)}>
             Rules
           </button>

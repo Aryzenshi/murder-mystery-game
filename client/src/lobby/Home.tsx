@@ -289,6 +289,18 @@ export function Home() {
             label="Music"
             onChange={(next) => setPrefs({ music: next })}
           />
+          {prefs.music && (
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.05"
+              value={prefs.musicVolume ?? 0.8}
+              onChange={(e) => setPrefs({ musicVolume: parseFloat(e.target.value) })}
+              style={{ width: '80px', margin: '0 8px', verticalAlign: 'middle' }}
+              title="Music Volume"
+            />
+          )}
           <span className="home__dot">·</span>
           <span className="home__credit">
             An original fan-made deduction game. Not affiliated with any commercial board game.

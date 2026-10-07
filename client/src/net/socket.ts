@@ -58,6 +58,7 @@ export interface Prefs {
   sound: boolean;
   /** Background music loop, separate from the sound effects. */
   music: boolean;
+  musicVolume: number;
   difficulty: string;
   personality: string;
 }
@@ -66,6 +67,7 @@ const DEFAULT_PREFS: Prefs = {
   name: '',
   sound: true,
   music: true,
+  musicVolume: 0.8,
   difficulty: 'medium',
   personality: 'analytical',
 };

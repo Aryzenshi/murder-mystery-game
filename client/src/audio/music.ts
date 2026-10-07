@@ -31,7 +31,7 @@ export const MUSIC_SOURCES: string[] = [
 ].filter(Boolean);
 
 /** Sitting-room level: present, never in the way of the table talk. */
-const FULL_VOLUME = 0.8;
+let FULL_VOLUME = 0.8;
 /** While the opening film has the floor. */
 const DUCKED_VOLUME = 0;
 const FADE_STEP = 0.03;
@@ -162,6 +162,11 @@ export function unlockMusic(): void {
 /** The Music switch. Turning it on from a switch counts as the gesture too. */
 export function setMusicEnabled(next: boolean): void {
   state.enabled = next;
+  sync();
+}
+
+export function setMusicVolume(volume: number): void {
+  FULL_VOLUME = Math.max(0, Math.min(1, volume));
   sync();
 }
 

@@ -10,7 +10,7 @@ import type {
 } from '@shared/types';
 import { getSocket, loadPrefs, loadSession, savePrefs, saveSession, notebookKey, type Prefs, type StoredSession } from '../net/socket';
 import { sfx, setSoundEnabled } from '../audio/sfx';
-import { setMusicEnabled } from '../audio/music';
+import { setMusicEnabled, setMusicVolume } from '../audio/music';
 
 export type Screen = 'home' | 'lobby' | 'game';
 export type NotebookMark = 'unknown' | 'possible' | 'confirmed' | 'eliminated';
@@ -134,6 +134,7 @@ export const useGame = create<Store>((set, get) => ({
     const prefs = get().prefs;
     setSoundEnabled(prefs.sound);
     setMusicEnabled(prefs.music);
+    setMusicVolume(prefs.musicVolume);
     const socket = getSocket();
 
     socket.on('connect', () => {
@@ -263,6 +264,7 @@ export const useGame = create<Store>((set, get) => ({
     set({ prefs });
     if (patch.sound !== undefined) setSoundEnabled(patch.sound);
     if (patch.music !== undefined) setMusicEnabled(patch.music);
+    if (patch.musicVolume !== undefined) setMusicVolume(patch.musicVolume);
   },
 
   toast: (message, tone = 'info') => {
