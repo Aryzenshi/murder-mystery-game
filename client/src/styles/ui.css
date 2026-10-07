@@ -144,6 +144,42 @@
   margin-bottom: 0.35rem;
 }
 
+/* ---------- range slider ---------- */
+
+input[type=range].vol-slider {
+  -webkit-appearance: none;
+  background: transparent;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--line);
+  outline: none;
+  transition: opacity 0.2s;
+  opacity: 0.8;
+}
+input[type=range].vol-slider:hover {
+  opacity: 1;
+}
+input[type=range].vol-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--brass-light);
+  cursor: pointer;
+  border: 1px solid var(--brass-dark);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+}
+input[type=range].vol-slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--brass-light);
+  cursor: pointer;
+  border: 1px solid var(--brass-dark);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+}
+
 /* ---------- segmented control (difficulty etc.) ---------- */
 
 .segmented {

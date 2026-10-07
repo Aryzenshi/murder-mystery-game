@@ -173,6 +173,7 @@ export function GameScreen() {
           {prefs.music && (
             <input
               type="range"
+              className="vol-slider"
               min="0"
               max="1"
               step="0.05"
