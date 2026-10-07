@@ -65,6 +65,15 @@ export function GameScreen() {
   });
   const [panelsOpen, setPanelsOpen] = useState(true);
 
+  const volRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    const el = volRef.current;
+    if (!el) return;
+    const prevent = (e: WheelEvent) => e.preventDefault();
+    el.addEventListener('wheel', prevent, { passive: false });
+    return () => el.removeEventListener('wheel', prevent);
+  }, [prefs.music]);
+
   const meId = session?.playerId ?? null;
   const myTurn = useIsMyTurn();
   const lastReveal = view?.private.lastReveal ?? null;
@@ -172,6 +181,7 @@ export function GameScreen() {
           </button>
           {prefs.music && (
             <input
+              ref={volRef}
               type="range"
               className="vol-slider"
               min="0"

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useGame } from '../store/gameStore';
 import { MansionMark, Modal, Segmented, Switch } from '../components/ui';
 import { fetchJson, loadSession, type NetworkInfo } from '../net/socket';
@@ -27,6 +27,15 @@ export function Home() {
   const [naming, setNaming] = useState(() => !!nameProblem(prefs.name));
   const [stored, setStored] = useState<ReturnType<typeof loadSession>>(null);
   const [lan, setLan] = useState<NetworkInfo | null>(null);
+
+  const volRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    const el = volRef.current;
+    if (!el) return;
+    const prevent = (e: WheelEvent) => e.preventDefault();
+    el.addEventListener('wheel', prevent, { passive: false });
+    return () => el.removeEventListener('wheel', prevent);
+  }, [prefs.music]);
 
   useEffect(() => {
     setStored(loadSession());
@@ -291,6 +300,7 @@ export function Home() {
           />
           {prefs.music && (
             <input
+              ref={volRef}
               type="range"
               className="vol-slider"
               min="0"
