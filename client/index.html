@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#241811" />
+    <meta
+      name="description"
+      content="Mystery Mansion — an original deduction board game for 3–6 detectives. Play with friends over Wi-Fi or online, with or without AI players."
+    />
+    <title>Mystery Mansion — a deduction board game</title>
+    <!-- Preload the opening film so it is buffered before the storyboard finishes. -->
+    <link rel="preload" href="/cinematic/intro.mp4" as="video" type="video/mp4" />
+    <!-- Preload the background music so it's ready when the game unlocks audio. -->
+    <link rel="preload" href="/audio/music.mp3" as="audio" type="audio/mpeg" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

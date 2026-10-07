@@ -1,0 +1,344 @@
+/* ==========================================================================
+   Home — the lid of the game box
+   ========================================================================== */
+
+.home {
+  height: 100%;
+  overflow-y: auto;
+  padding: clamp(1rem, 3vh, 2.6rem) 1.2rem 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.home__inner {
+  width: min(1020px, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.home__head {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.home__mark {
+  color: var(--brass);
+  opacity: 0.9;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.45));
+}
+
+.home__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 6vw, 3.7rem);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #f6ecd6;
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.5), 0 12px 30px rgba(0, 0, 0, 0.45);
+  margin-top: 0.1rem;
+}
+
+.home__rule {
+  width: min(420px, 80vw);
+  height: 3px;
+  margin: 0.55rem 0 0.7rem;
+  background: linear-gradient(to right, transparent, var(--brass) 20%, var(--brass) 80%, transparent);
+  box-shadow: 0 1px 0 rgba(255, 232, 190, 0.25);
+}
+
+.home__tag {
+  margin: 0;
+  color: rgba(246, 236, 214, 0.76);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+}
+
+/* ---------- name gate (the "login" screen) ---------- */
+
+.home__gate {
+  width: min(560px, 100%);
+  margin: 0 auto 1rem;
+  padding: 1.1rem 1.2rem 1.2rem;
+  text-align: center;
+}
+
+.home__gate-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 3.6vw, 1.75rem);
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  margin: 0.15rem 0 0.4rem;
+}
+
+.home__gate-copy {
+  margin: 0 auto 0.9rem;
+  max-width: 42ch;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.home__gate-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.field--name {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 320px;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
+}
+
+.home__gate-hint {
+  margin: 0.6rem 0 0;
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+}
+
+.home__name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.home__name-label {
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.home__name-value {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+}
+
+.home__name {
+  width: min(340px, 100%);
+  text-align: left;
+}
+
+.home__name .field-label {
+  color: rgba(246, 236, 214, 0.65);
+}
+
+.home__panels {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  width: 100%;
+}
+
+.home__panel {
+  padding: 1.15rem 1.25rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.home__panel--single {
+  width: min(520px, 100%);
+}
+
+.home__panel-title {
+  font-size: 1.32rem;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  margin-top: 0.1rem;
+}
+
+.home__panel-copy {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.home__panel-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 0.7rem;
+}
+
+.home__panel-actions--row {
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.home__error {
+  margin: 0.2rem 0 0;
+  color: var(--burgundy);
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+}
+
+.home__rejoin {
+  width: min(640px, 100%);
+  padding: 0.8rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.home__rejoin-code {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: 0.3em;
+  color: var(--ink);
+}
+
+.home__rejoin-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.home__lan-url {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  font-size: 0.95rem;
+  padding: 0.5rem 0.6rem;
+  background: rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--line-soft);
+  border-radius: 2px;
+  color: var(--ink);
+  text-align: center;
+  word-break: break-all;
+}
+
+.home__qr {
+  display: grid;
+  place-items: center;
+  padding: 0.6rem;
+}
+
+.home__qr img {
+  border: 6px solid #f6edda;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  border-radius: 2px;
+}
+
+.home__qr-empty {
+  width: 168px;
+  height: 168px;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.home__foot {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  color: rgba(246, 236, 214, 0.6);
+  font-size: 0.8rem;
+}
+
+.home__dot {
+  opacity: 0.4;
+}
+
+.home__credit {
+  font-size: 0.72rem;
+  opacity: 0.6;
+  max-width: 340px;
+  line-height: 1.4;
+}
+
+.home__settings {
+  width: min(720px, 100%);
+  padding: 0.8rem 1rem;
+}
+
+.home__settings-row {
+  display: flex;
+  gap: 1.4rem;
+  flex-wrap: wrap;
+  margin-top: 0.4rem;
+}
+
+.link-btn {
+  background: none;
+  border: 0;
+  padding: 0;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brass-light);
+  cursor: pointer;
+  border-bottom: 1px dotted currentColor;
+}
+
+.link-btn:hover {
+  color: #f2dfae;
+}
+
+.switch__label {
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: inherit;
+}
+
+/* ---------- how to play ---------- */
+
+.help {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.help h3 {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--ink);
+  margin-bottom: 0.25rem;
+  letter-spacing: 0.02em;
+}
+
+.help p,
+.help li {
+  margin: 0.2rem 0;
+}
+
+.help ul,
+.help ol {
+  margin: 0.2rem 0;
+  padding-left: 1.2rem;
+}
+
+.help--short p {
+  margin: 0.4rem 0;
+}
+
+/* ---------- phone: keep the last button clear of the gesture bar ---------- */
+
+@media (max-width: 1000px) {
+  .home {
+    padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+  }
+}

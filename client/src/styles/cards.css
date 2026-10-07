@@ -1,0 +1,360 @@
+/* ==========================================================================
+   Cards — cream stock, thin printed borders, engraved type
+   ========================================================================== */
+
+.card {
+  --card-w: 84px;
+  position: relative;
+  flex: 0 0 auto;
+  width: var(--card-w);
+  aspect-ratio: 2 / 3;
+  display: flex;
+  flex-direction: column;
+  padding: calc(var(--card-w) * 0.075) calc(var(--card-w) * 0.062);
+  background-color: #f7eeda;
+  background-image: var(--tex-paper);
+  background-blend-mode: multiply;
+  background-size: 160px 160px;
+  border: 1px solid rgba(46, 31, 20, 0.6);
+  border-radius: calc(var(--card-w) * 0.045);
+  box-shadow: 0 1px 1px rgba(20, 12, 8, 0.3), 0 6px 14px rgba(20, 12, 8, 0.24);
+  overflow: hidden;
+  animation: deal-in 0.42s cubic-bezier(0.2, 0.8, 0.3, 1) backwards;
+  transition: transform 0.16s ease, box-shadow 0.16s ease, filter 0.16s ease;
+  user-select: none;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: calc(var(--card-w) * 0.035);
+  border: 1px solid rgba(46, 31, 20, 0.22);
+  border-radius: calc(var(--card-w) * 0.02);
+  pointer-events: none;
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.5), transparent 42%);
+  pointer-events: none;
+}
+
+.card[data-size='xs'] {
+  --card-w: 44px;
+}
+.card[data-size='sm'] {
+  --card-w: 62px;
+}
+.card[data-size='md'] {
+  --card-w: 84px;
+}
+.card[data-size='lg'] {
+  --card-w: 116px;
+}
+
+.card__head {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(var(--card-w) * 0.12);
+}
+
+.card__cat {
+  font-family: var(--font-body);
+  font-size: calc(var(--card-w) * 0.088);
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--accent, #6d2233);
+}
+
+.card__rule {
+  height: 1px;
+  margin: calc(var(--card-w) * 0.03) 8%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--accent, #6d2233) 18%,
+    var(--accent, #6d2233) 82%,
+    transparent
+  );
+  opacity: 0.65;
+}
+
+.card__art {
+  position: relative;
+  flex: 1 1 auto;
+  display: grid;
+  place-items: center;
+  margin: calc(var(--card-w) * 0.02) calc(var(--card-w) * 0.03);
+  background: linear-gradient(170deg, rgba(255, 252, 244, 0.85), rgba(232, 218, 189, 0.7));
+  border: 1px solid rgba(46, 31, 20, 0.22);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.card__art-svg {
+  width: 100%;
+  height: 100%;
+  padding: 4%;
+}
+
+.card__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  /* The whole picture is shown, never cropped: the art window is roughly
+     square, so a 4:3 picture sits inside it like a plate mounted on the card
+     and the window's own ivory shows above and below. */
+  object-fit: contain;
+  pointer-events: none;
+  animation: fade-in 0.3s ease;
+}
+
+.card__img[data-room] {
+  /* Fills the whole art window, cropping the image if necessary to prevent letterboxing. */
+  object-fit: cover;
+}
+
+.card__name {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  font-family: var(--font-display);
+  font-size: calc(var(--card-w) * 0.135);
+  line-height: 1.08;
+  text-align: center;
+  color: #2b1c12;
+  letter-spacing: 0.02em;
+  padding-bottom: calc(var(--card-w) * 0.02);
+}
+
+.card__back {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.card__monogram {
+  font-family: var(--font-display);
+  font-size: 46px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.card[data-face='down'] {
+  background: #5b1b28;
+  border-color: rgba(232, 207, 156, 0.5);
+}
+
+.card[data-face='down']::before {
+  border-color: rgba(232, 207, 156, 0.28);
+}
+
+.card[data-selected] {
+  transform: translateY(-8px);
+  box-shadow: 0 2px 3px rgba(20, 12, 8, 0.28), 0 14px 24px rgba(20, 12, 8, 0.34);
+  border-color: var(--brass);
+}
+
+.card[data-selected]::before {
+  border-color: var(--brass);
+  box-shadow: 0 0 0 2px rgba(177, 131, 74, 0.28);
+}
+
+.card[data-disabled] {
+  filter: saturate(0.5) brightness(0.92);
+  cursor: not-allowed;
+}
+
+.card[data-dim] {
+  filter: saturate(0.55) brightness(0.9);
+  opacity: 0.72;
+}
+
+.card[role='button'] {
+  cursor: pointer;
+}
+
+.card[role='button']:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 2px 3px rgba(20, 12, 8, 0.3), 0 12px 22px rgba(20, 12, 8, 0.32);
+}
+
+/* ---------- hand fan ---------- */
+
+.hand {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.15rem;
+  padding: 0.1rem 0.2rem 0.3rem;
+  flex-wrap: wrap;
+}
+
+.hand__card {
+  transition: transform 0.18s ease;
+}
+
+.hand__card:hover {
+  transform: translateY(-6px) rotate(0deg) !important;
+  z-index: 3;
+}
+
+/* ---------- opponents' stacks ---------- */
+
+.card-stack {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: 66px;
+  min-width: 46px;
+}
+
+.card-stack__item {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  transition: transform 0.2s ease;
+}
+
+.card-stack__count {
+  position: absolute;
+  right: -6px;
+  bottom: -4px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  color: var(--ivory);
+  background: linear-gradient(180deg, #4a3221, #2b1a11);
+  border: 1px solid var(--brass-dark);
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+
+/* ---------------------------------------------------------------- *
+   Reading a card: click one in your hand to lift it out
+ * ---------------------------------------------------------------- */
+
+.card[role='button'] {
+  cursor: pointer;
+}
+
+.card[role='button']:focus-visible {
+  outline: 2px solid var(--brass-dark);
+  outline-offset: 2px;
+}
+
+.card-zoom {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: grid;
+  place-items: center;
+  padding: 1.2rem;
+  cursor: pointer;
+  background: radial-gradient(70% 70% at 50% 45%, rgba(14, 9, 6, 0.74), rgba(5, 3, 2, 0.92));
+  animation: fade-in 0.18s ease;
+}
+
+.card-zoom[data-closing] {
+  animation: fade-out 0.18s ease forwards;
+}
+
+.card-zoom__stage {
+  display: grid;
+  justify-items: center;
+  gap: 0.8rem;
+  animation: card-lift 0.26s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.card-zoom[data-closing] .card-zoom__stage {
+  animation: card-drop 0.18s ease forwards;
+}
+
+.card-zoom__card {
+  filter: drop-shadow(0 18px 34px rgba(0, 0, 0, 0.55));
+  transition: transform 0.18s ease;
+}
+
+/* big enough to actually read the art and the name (the card sizes itself) */
+.card-zoom .card[data-size] {
+  --card-w: clamp(190px, 30vw, 300px);
+}
+
+.card-zoom__card .card {
+  animation: none;
+}
+
+.card-zoom__card:hover {
+  transform: translateY(-4px);
+}
+
+.card-zoom__hint {
+  margin: 0;
+  max-width: 34ch;
+  text-align: center;
+  font-size: 0.76rem;
+  letter-spacing: 0.04em;
+  color: rgba(246, 236, 214, 0.62);
+}
+
+.card-zoom__hint kbd {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  padding: 0.02rem 0.3rem;
+  border: 1px solid rgba(177, 131, 74, 0.5);
+  border-radius: 2px;
+  color: var(--brass-light);
+}
+
+@keyframes card-lift {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.86) rotate(-1.5deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes card-drop {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(10px) scale(0.92);
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .card-zoom {
+    padding: 1rem;
+  }
+  .card-zoom .card[data-size] {
+    --card-w: min(72vw, 280px);
+  }
+}

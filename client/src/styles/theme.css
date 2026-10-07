@@ -1,0 +1,252 @@
+/* ==========================================================================
+   MYSTERY MANSION — theme
+   Warm ivory, aged paper, dark walnut, burgundy, forest, muted brass.
+   No glassmorphism, no neon, no giant gradients — printed matter and wood.
+   ========================================================================== */
+
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('../assets/fonts/playfair-var.woff2') format('woff2');
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cormorant Garamond';
+  src: url('../assets/fonts/cormorant-var.woff2') format('woff2');
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Spectral';
+  src: url('../assets/fonts/spectral-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Spectral';
+  src: url('../assets/fonts/spectral-500.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Spectral';
+  src: url('../assets/fonts/spectral-600.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* ink & paper */
+  --ink: #241b15;
+  --ink-soft: #4c3f34;
+  --ink-faint: #7a6a59;
+  --paper: #f6edda;
+  --paper-2: #efe2c9;
+  --paper-3: #e7d8ba;
+  --ivory: #fbf5e8;
+
+  /* wood & metal */
+  --walnut: #3a271c;
+  --walnut-dark: #20150f;
+  --walnut-deep: #160e0a;
+  --walnut-light: #553a29;
+  --brass: #b1834a;
+  --brass-dark: #7c5a2c;
+  --brass-light: #d8b878;
+
+  /* accents */
+  --burgundy: #6d2233;
+  --burgundy-deep: #4e1622;
+  --forest: #22452f;
+  --charcoal: #2b2724;
+
+  /* lines & shadows */
+  --line: rgba(58, 39, 28, 0.3);
+  --line-soft: rgba(58, 39, 28, 0.16);
+  --line-brass: rgba(177, 131, 74, 0.5);
+  --shadow-card: 0 1px 2px rgba(22, 14, 10, 0.28), 0 6px 14px rgba(22, 14, 10, 0.18);
+  --shadow-panel: 0 1px 0 rgba(255, 245, 230, 0.12) inset, 0 10px 28px rgba(15, 9, 6, 0.35);
+  --shadow-lift: 0 2px 4px rgba(22, 14, 10, 0.3), 0 12px 26px rgba(22, 14, 10, 0.26);
+
+  /* type */
+  --font-display: 'Playfair Display', 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-elegant: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-body: 'Spectral', Georgia, 'Times New Roman', serif;
+
+  /* textures */
+  --tex-paper: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  --tex-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.4' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23g)' opacity='0.32'/%3E%3C/svg%3E");
+  --tex-wood: repeating-linear-gradient(
+      91deg,
+      rgba(0, 0, 0, 0.16) 0 1px,
+      rgba(255, 255, 255, 0.035) 1px 3px,
+      rgba(0, 0, 0, 0.07) 3px 7px,
+      rgba(255, 255, 255, 0.02) 7px 11px,
+      rgba(0, 0, 0, 0.11) 11px 16px
+    ),
+    repeating-linear-gradient(
+      89deg,
+      rgba(255, 255, 255, 0.02) 0 4px,
+      rgba(0, 0, 0, 0.06) 4px 9px
+    );
+
+  --radius: 3px;
+  --radius-lg: 5px;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--ink);
+  background-color: var(--walnut-deep);
+  background-image: var(--tex-wood),
+    radial-gradient(120% 90% at 50% -10%, rgba(120, 82, 46, 0.5), transparent 60%),
+    radial-gradient(100% 100% at 50% 120%, rgba(0, 0, 0, 0.6), transparent 60%);
+  background-size: 320px 320px, auto, auto;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow: hidden;
+}
+
+#root {
+  min-height: 100%;
+  overflow: hidden;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+button {
+  font-family: inherit;
+  color: inherit;
+}
+
+input,
+select {
+  font-family: inherit;
+  font-size: 1rem;
+  color: inherit;
+}
+
+::selection {
+  background: rgba(177, 131, 74, 0.35);
+}
+
+/* ---------- shared lettering ---------- */
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.rule {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--line-brass) 12%,
+    var(--line-brass) 88%,
+    transparent
+  );
+  border: 0;
+  margin: 0.7rem 0;
+}
+
+.rule--strong {
+  height: 2px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(124, 90, 44, 0.75) 10%,
+    rgba(124, 90, 44, 0.75) 90%,
+    transparent
+  );
+}
+
+/* ---------- paper surfaces ---------- */
+
+.paper {
+  position: relative;
+  background-color: var(--paper);
+  background-image: var(--tex-paper);
+  background-blend-mode: multiply;
+  background-size: 200px 200px;
+  border: 1px solid rgba(58, 39, 28, 0.35);
+  box-shadow: var(--shadow-card);
+  border-radius: var(--radius);
+}
+
+.paper::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1px solid var(--line-soft);
+  pointer-events: none;
+  border-radius: 2px;
+}
+
+.paper--dark {
+  background-color: #2a1d15;
+  background-image: var(--tex-paper);
+  background-blend-mode: soft-light;
+  color: var(--paper);
+  border-color: rgba(177, 131, 74, 0.35);
+}
+
+.scroll-y {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(124, 90, 44, 0.5) transparent;
+}
+
+.scroll-y::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.scroll-y::-webkit-scrollbar-thumb {
+  background: rgba(124, 90, 44, 0.45);
+  border-radius: 8px;
+}
+
+.scroll-y::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

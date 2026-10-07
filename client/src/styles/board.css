@@ -1,0 +1,168 @@
+/* ==========================================================================
+   The board — the centrepiece
+   ========================================================================== */
+
+.board-wrap {
+  flex: 1 1 auto;
+  min-height: 0;
+  min-width: 0;
+  display: grid;
+  place-items: center;
+  padding: 0.35rem;
+  container-type: size;
+}
+
+.board {
+  position: relative;
+  /* "contain" fit inside the board area on every screen size */
+  width: min(100cqw, calc(100cqh * 26 / 27));
+  height: min(100cqh, calc(100cqw * 27 / 26));
+  max-width: 100%;
+  max-height: 100%;
+  aspect-ratio: 26 / 27;
+  margin: 0 auto;
+  border-radius: 6px;
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.5), 0 2px 0 rgba(255, 236, 205, 0.14) inset;
+}
+
+@supports not (width: 1cqw) {
+  .board {
+    height: 100%;
+    width: auto;
+  }
+}
+
+.board__svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.board__svg text {
+  user-select: none;
+  -webkit-user-select: none;
+  pointer-events: none;
+}
+
+.board__svg image {
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.board__room-name {
+  font-family: var(--font-elegant);
+  font-weight: 700;
+  letter-spacing: 0.09em;
+}
+
+.board__room-motif {
+  font-family: var(--font-body);
+  font-size: 0.3px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.board__court-title {
+  font-family: var(--font-display);
+  font-size: 0.66px;
+  letter-spacing: 0.13em;
+  font-weight: 600;
+}
+
+.board__court-sub {
+  font-family: var(--font-body);
+  font-size: 0.34px;
+  letter-spacing: 0.42em;
+  font-weight: 500;
+}
+
+.board__start-initial {
+  font-family: var(--font-elegant);
+  font-size: 0.42px;
+  font-weight: 700;
+}
+
+.board__passage {
+  pointer-events: none;
+}
+
+.board__move rect {
+  transition: fill 0.14s ease;
+}
+
+.board__move--active {
+  cursor: pointer;
+}
+
+.board__move--active:hover rect {
+  fill: rgba(177, 131, 74, 0.42);
+}
+
+.board__move--active:hover circle {
+  fill: rgba(60, 42, 20, 0.85);
+}
+
+/* ---------- tokens ---------- */
+
+.board__tokens {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.token {
+  position: absolute;
+  width: 3.9%;
+  transform: translate(-50%, -58%);
+  transition: left 0.44s cubic-bezier(0.32, 0.82, 0.28, 1),
+    top 0.44s cubic-bezier(0.32, 0.82, 0.28, 1), opacity 0.2s ease, filter 0.2s ease;
+}
+
+.pawn {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 2px 2.5px rgba(18, 11, 7, 0.5));
+}
+
+.pawn__ring {
+  fill: none;
+  stroke: #e0c088;
+  stroke-width: 0.75;
+  stroke-dasharray: 2.4 2;
+  opacity: 0.95;
+  animation: spin 9s linear infinite;
+  transform-origin: center;
+}
+
+.pawn__mine {
+  fill: none;
+  stroke: rgba(252, 246, 232, 0.8);
+  stroke-width: 0.55;
+  stroke-dasharray: 1.6 1.6;
+  opacity: 0.85;
+}
+
+.token[data-out] .pawn {
+  filter: grayscale(0.55) brightness(0.85) drop-shadow(0 1px 1px rgba(18, 11, 7, 0.4));
+}
+
+.token[data-dim] .pawn {
+  opacity: 0.5;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* legal destinations ease in rather than snapping on */
+.board__move {
+  animation: fade-in 0.26s ease;
+}

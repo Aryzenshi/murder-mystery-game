@@ -1,0 +1,28 @@
+{
+  "name": "mystery-mansion",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Mystery Mansion — a server-authoritative, real-time deduction board game (Cluedo-inspired) with human + AI players, LAN and online play.",
+  "workspaces": [
+    "shared",
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "dev": "concurrently -n server,client -c magenta,cyan \"npm:dev:server\" \"npm:dev:client\"",
+    "dev:server": "npm -w server run dev",
+    "dev:client": "npm -w client run dev",
+    "build": "npm -w shared run build && npm -w server run build && npm -w client run build",
+    "start": "npm -w server run start",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "npm -w shared run typecheck && npm -w server run typecheck && npm -w client run typecheck"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.10",
+    "concurrently": "^8.2.2",
+    "typescript": "^5.5.4",
+    "vitest": "^1.6.1"
+  },
+  "license": "MIT"
+}
