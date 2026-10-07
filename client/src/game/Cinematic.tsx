@@ -47,14 +47,11 @@ function prefersReducedMotion(): boolean {
 export function Cinematic({
   players,
   soundOn,
-  introVideo = true,
   onDone,
 }: {
   players: PublicPlayer[];
   /** False when the player has switched the sound off — the film respects it. */
   soundOn: boolean;
-  /** False when the player has disabled heavy video downloads or on slow networks. */
-  introVideo?: boolean;
   onDone: () => void;
 }) {
   /** 'storyboard' → animated text; 'film' → video plays full-screen. */
@@ -87,7 +84,7 @@ export function Cinematic({
   const endStoryboard = () => {
     if (doneRef.current) return;
     const video = videoRef.current;
-    if (failedRef.current || !introVideo || !video || video.readyState < 3) {
+    if (failedRef.current || !video) {
       finish();
     } else {
       setPhase('film');
@@ -97,7 +94,7 @@ export function Cinematic({
   // ── Phase 1 — preload the film silently while storyboard plays ─────────────
 
   useEffect(() => {
-    if (!introVideo || !INTRO_FILM_URL) {
+    if (!INTRO_FILM_URL) {
       failedRef.current = true;
       setFilmFailed(true);
       return;
@@ -109,7 +106,7 @@ export function Cinematic({
     video.muted = true;
     video.src = INTRO_FILM_URL;
     video.load();
-  }, [introVideo]);
+  }, []);
 
   // ── Phase 1 — typing animation ─────────────────────────────────────────────
 
@@ -240,7 +237,7 @@ export function Cinematic({
         the storyboard phase. In the storyboard phase it is invisible; in the
         film phase it fills the screen.
       */}
-      {!filmFailed && introVideo && (
+      {!filmFailed && (
         <video
           ref={videoRef}
           className="cine__film"

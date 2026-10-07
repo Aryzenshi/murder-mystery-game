@@ -170,17 +170,7 @@ export function GameScreen() {
           >
             Music: {prefs.music ? 'On' : 'Off'}
           </button>
-          <button
-            className="btn btn--ghost btn--sm"
-            onClick={() => setPrefs({ introVideo: !prefs.introVideo })}
-            title={
-              prefs.introVideo
-                ? 'Intro film is enabled — click to disable heavy video and save bandwidth'
-                : 'Intro film is disabled — click to enable'
-            }
-          >
-            Film: {prefs.introVideo ? 'On' : 'Off'}
-          </button>
+
           <button className="btn btn--ghost btn--sm" onClick={() => setHelp(true)}>
             Rules
           </button>
@@ -384,7 +374,6 @@ export function GameScreen() {
         <Cinematic
           players={pub.players}
           soundOn={prefs.sound}
-          introVideo={prefs.introVideo}
           onDone={() => setIntro(false)}
         />
       )}
