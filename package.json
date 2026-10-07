@@ -19,10 +19,13 @@
     "typecheck": "npm -w shared run typecheck && npm -w server run typecheck && npm -w client run typecheck"
   },
   "devDependencies": {
-    "@types/node": "^20.14.10",
+    "@types/node": "^26.6.4",
     "concurrently": "^8.2.2",
     "typescript": "^5.5.4",
-    "vitest": "^1.6.1"
+    "vitest": "^5.0.3"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "vite": "8.3.3"
+  }
 }

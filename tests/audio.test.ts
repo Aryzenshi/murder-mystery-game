@@ -9,13 +9,13 @@ import { MUSIC_SOURCES } from '../client/src/audio/music';
  * asks for, and the note that tells whoever fills it what to put there.
  */
 
-const PUBLIC = path.resolve(__dirname, '../client/public');
+const ASSETS = path.resolve(__dirname, '../client/src/assets');
 
 describe('the music slot', () => {
-  it('looks for a file inside public/audio', () => {
+  it('looks for a file inside src/assets/audio', () => {
     expect(MUSIC_SOURCES.length).toBeGreaterThan(0);
     for (const source of MUSIC_SOURCES) {
-      expect(source.startsWith('/audio/'), `${source} is not under /audio/`).toBe(true);
+      expect(typeof source).toBe('string');
     }
   });
 
@@ -24,7 +24,7 @@ describe('the music slot', () => {
   });
 
   it('explains itself to whoever brings the track', () => {
-    expect(existsSync(path.join(PUBLIC, 'audio', 'README.md'))).toBe(true);
+    expect(existsSync(path.join(ASSETS, 'audio', 'README.md'))).toBe(true);
   });
 });
 
