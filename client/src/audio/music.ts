@@ -162,7 +162,6 @@ export function unlockMusic(): void {
 /** The Music switch. Turning it on from a switch counts as the gesture too. */
 export function setMusicEnabled(next: boolean): void {
   state.enabled = next;
-  if (next) state.unlocked = true;
   sync();
 }
 
