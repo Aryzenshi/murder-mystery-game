@@ -179,6 +179,11 @@ export function GameScreen() {
               step="0.05"
               value={prefs.musicVolume ?? 0.8}
               onChange={(e) => setPrefs({ musicVolume: parseFloat(e.target.value) })}
+              onWheel={(e) => {
+                const delta = e.deltaY < 0 ? 0.05 : -0.05;
+                const next = Math.max(0, Math.min(1, (prefs.musicVolume ?? 0.8) + delta));
+                setPrefs({ musicVolume: parseFloat(next.toFixed(2)) });
+              }}
               style={{ width: '60px', marginLeft: '-4px', marginRight: '4px', verticalAlign: 'middle' }}
               title="Music Volume"
             />
