@@ -41,6 +41,24 @@ export function isSoundEnabled() {
   return enabled;
 }
 
+if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+  const pauseSfx = () => {
+    if (ctx && ctx.state === 'running') void ctx.suspend();
+  };
+  const resumeSfx = () => {
+    if (enabled && ctx && ctx.state === 'suspended' && !document.hidden) {
+      void ctx.resume();
+    }
+  };
+  
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) pauseSfx();
+    else resumeSfx();
+  });
+  window.addEventListener('blur', pauseSfx);
+  window.addEventListener('focus', resumeSfx);
+}
+
 function noiseBuffer(seconds: number): AudioBuffer | null {
   const context = audio();
   if (!context) return null;

@@ -176,14 +176,23 @@ export function duckMusic(ducked: boolean): void {
 }
 
 if (typeof document !== 'undefined') {
-  // Leaving the tab should not leave the music playing into an empty room.
-  document.addEventListener('visibilitychange', () => {
+  const pauseMusic = () => {
     const el = state.el;
-    if (!el) return;
-    if (document.hidden) {
-      el.pause();
-    } else if (state.enabled && !state.exhausted && state.target > 0) {
+    if (el) el.pause();
+  };
+
+  const resumeMusic = () => {
+    const el = state.el;
+    if (el && state.enabled && !state.exhausted && state.target > 0 && !document.hidden) {
       void el.play().catch(() => undefined);
     }
+  };
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) pauseMusic();
+    else resumeMusic();
   });
+
+  window.addEventListener('blur', pauseMusic);
+  window.addEventListener('focus', resumeMusic);
 }
