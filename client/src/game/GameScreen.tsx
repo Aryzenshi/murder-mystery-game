@@ -51,13 +51,16 @@ export function GameScreen() {
     // once per case, and never again on a refresh or a reconnect
     const gameId = view?.public.gameId;
     if (!gameId) return false;
+    // Never show or download intro when joining a game already in progress
+    if (view?.public.turnNumber && view.public.turnNumber > 1) return false;
+    if (view?.public.phase === 'finished') return false;
     try {
       const key = `mystery:intro:${gameId}`;
       if (sessionStorage.getItem(key)) return false;
       sessionStorage.setItem(key, '1');
       return true;
     } catch {
-      return true; // private browsing: play it, it is only eight seconds
+      return true;
     }
   });
   const [panelsOpen, setPanelsOpen] = useState(true);
@@ -166,6 +169,17 @@ export function GameScreen() {
             }
           >
             Music: {prefs.music ? 'On' : 'Off'}
+          </button>
+          <button
+            className="btn btn--ghost btn--sm"
+            onClick={() => setPrefs({ introVideo: !prefs.introVideo })}
+            title={
+              prefs.introVideo
+                ? 'Intro film is enabled — click to disable heavy video and save bandwidth'
+                : 'Intro film is disabled — click to enable'
+            }
+          >
+            Film: {prefs.introVideo ? 'On' : 'Off'}
           </button>
           <button className="btn btn--ghost btn--sm" onClick={() => setHelp(true)}>
             Rules
@@ -370,6 +384,7 @@ export function GameScreen() {
         <Cinematic
           players={pub.players}
           soundOn={prefs.sound}
+          introVideo={prefs.introVideo}
           onDone={() => setIntro(false)}
         />
       )}

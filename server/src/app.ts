@@ -132,7 +132,18 @@ export function createApp(
 
   const clientDist = path.resolve(__dirname, '../../client/dist');
   if (fs.existsSync(clientDist)) {
-    app.use(express.static(clientDist, { index: false, maxAge: '1h' }));
+    app.use(
+      express.static(clientDist, {
+        index: false,
+        maxAge: '1h',
+        setHeaders: (res, filePath) => {
+          // Vite hashed assets are immutable — cache permanently so browsers never re-download them
+          if (filePath.includes(path.sep + 'assets' + path.sep) || filePath.includes('/assets/')) {
+            res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+          }
+        },
+      }),
+    );
     app.get('*', (req, res, next) => {
       if (req.path.startsWith('/api') || req.path.startsWith('/socket.io')) return next();
       res.sendFile(path.join(clientDist, 'index.html'));

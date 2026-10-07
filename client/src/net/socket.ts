@@ -57,14 +57,25 @@ export interface Prefs {
   sound: boolean;
   /** Background music loop, separate from the sound effects. */
   music: boolean;
+  /** Cinematic intro film. When false, only the lightweight storyboard plays, saving data. */
+  introVideo: boolean;
   difficulty: string;
   personality: string;
+}
+
+function shouldEnableVideoByDefault(): boolean {
+  if (typeof navigator === 'undefined') return true;
+  const conn = (navigator as unknown as { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
+  if (conn?.saveData) return false;
+  if (conn?.effectiveType === 'slow-2g' || conn?.effectiveType === '2g') return false;
+  return true;
 }
 
 const DEFAULT_PREFS: Prefs = {
   name: '',
   sound: true,
   music: true,
+  introVideo: shouldEnableVideoByDefault(),
   difficulty: 'medium',
   personality: 'analytical',
 };

@@ -47,11 +47,14 @@ function prefersReducedMotion(): boolean {
 export function Cinematic({
   players,
   soundOn,
+  introVideo = true,
   onDone,
 }: {
   players: PublicPlayer[];
   /** False when the player has switched the sound off — the film respects it. */
   soundOn: boolean;
+  /** False when the player has disabled heavy video downloads or on slow networks. */
+  introVideo?: boolean;
   onDone: () => void;
 }) {
   /** 'storyboard' → animated text; 'film' → video plays full-screen. */
@@ -78,12 +81,13 @@ export function Cinematic({
   };
 
   /**
-   * End the storyboard. If the film loaded successfully, transition to phase 2;
-   * otherwise go straight to the board.
+   * End the storyboard. If the film loaded and buffered enough to play smoothly,
+   * transition to phase 2; otherwise skip the film so slow connections aren't stalled.
    */
   const endStoryboard = () => {
     if (doneRef.current) return;
-    if (failedRef.current) {
+    const video = videoRef.current;
+    if (failedRef.current || !introVideo || !video || video.readyState < 3) {
       finish();
     } else {
       setPhase('film');
@@ -93,6 +97,11 @@ export function Cinematic({
   // ── Phase 1 — preload the film silently while storyboard plays ─────────────
 
   useEffect(() => {
+    if (!introVideo || !INTRO_FILM_URL) {
+      failedRef.current = true;
+      setFilmFailed(true);
+      return;
+    }
     const video = videoRef.current;
     if (!video) return;
     // Preload only — no play() yet. Muted so the browser permits the load.
@@ -100,7 +109,7 @@ export function Cinematic({
     video.muted = true;
     video.src = INTRO_FILM_URL;
     video.load();
-  }, []);
+  }, [introVideo]);
 
   // ── Phase 1 — typing animation ─────────────────────────────────────────────
 
@@ -231,7 +240,7 @@ export function Cinematic({
         the storyboard phase. In the storyboard phase it is invisible; in the
         film phase it fills the screen.
       */}
-      {!filmFailed && (
+      {!filmFailed && introVideo && (
         <video
           ref={videoRef}
           className="cine__film"

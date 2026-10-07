@@ -290,6 +290,12 @@ export function Home() {
             onChange={(next) => setPrefs({ music: next })}
           />
           <span className="home__dot">·</span>
+          <Switch
+            checked={prefs.introVideo}
+            label="Intro film"
+            onChange={(next) => setPrefs({ introVideo: next })}
+          />
+          <span className="home__dot">·</span>
           <span className="home__credit">
             An original fan-made deduction game. Not affiliated with any commercial board game.
           </span>
