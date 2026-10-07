@@ -149,9 +149,10 @@
 input[type=range].vol-slider {
   -webkit-appearance: none;
   background: transparent;
-  height: 4px;
-  border-radius: 2px;
-  background: var(--line);
+  height: 6px;
+  border-radius: 3px;
+  background: var(--line-soft);
+  border: 1px solid var(--brass-dark);
   outline: none;
   transition: opacity 0.2s;
   opacity: 0.8;
