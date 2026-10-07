@@ -10,7 +10,8 @@ let socket: Socket | null = null;
  */
 export function getSocket(): Socket {
   if (!socket) {
-    socket = io({
+    const url = import.meta.env.VITE_SERVER_URL || '';
+    socket = io(url, {
       path: '/socket.io',
       transports: ['websocket', 'polling'],
       upgrade: true,
@@ -102,7 +103,9 @@ export const notebookKey = (roomCode: string, playerId: string) =>
 
 export async function fetchJson<T>(url: string): Promise<T | null> {
   try {
-    const response = await fetch(url);
+    const baseUrl = import.meta.env.VITE_SERVER_URL || '';
+    const fullUrl = url.startsWith('/') ? `${baseUrl}${url}` : url;
+    const response = await fetch(fullUrl);
     if (!response.ok) return null;
     return (await response.json()) as T;
   } catch {
